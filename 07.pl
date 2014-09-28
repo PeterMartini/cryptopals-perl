@@ -1,13 +1,16 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Test::More tests => 1;
+
 use Crypt::Mode::ECB;
 use MIME::Base64;
 
 my $m = Crypt::Mode::ECB->new('AES');
 undef $/;
-my $plaintext = $m->decrypt(decode_base64(<DATA>), "YELLOW SUBMARINE");
-print $plaintext;
+open(my $funkymusic, "<funkymusic.txt");
+is <$funkymusic>, $m->decrypt(decode_base64(<DATA>), "YELLOW SUBMARINE");
+close($funkymusic);
 
 __DATA__
 CRIwqt4+szDbqkNY+I0qbDe3LQz0wiw0SuxBQtAM5TDdMbjCMD/venUDW9BL
