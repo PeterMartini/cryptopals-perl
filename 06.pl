@@ -3,6 +3,7 @@ use v5.10;
 use strict;
 use warnings;
 use MIME::Base64;
+use Test::More tests => 1;
 
 my $anycommon = qr/[ETAOIN SHRDLU]/i;
 
@@ -74,7 +75,9 @@ sub get_keysize {
 undef $/;
 my $data = decode_base64(<DATA>);
 
-print decrypt_for_keysize($data, get_keysize($data));
+open(my $funkymusic, "<funkymusic.txt");
+is <$funkymusic>, decrypt_for_keysize($data, get_keysize($data));
+close($funkymusic);
 
 __DATA__
 HUIfTQsPAh9PE048GmllH0kcDk4TAQsHThsBFkU2AB4BSWQgVB0dQzNTTmVS
